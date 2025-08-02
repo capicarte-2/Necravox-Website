@@ -631,5 +631,204 @@
             
             <div class="dashboard-container slide-up">
                 <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
-                    Configure o Necravox para seu servidor. 
+                    Configure o Necravox para seu servidor. Primeiro, 
+                    <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" 
+                       target="_blank" style="color: #5DADE2; text-decoration: none;">
+                        <strong>adicione o bot ao seu servidor</strong>
+                    </a>
+                </p>
+
+                <div class="config-form">
+                    <div class="config-section">
+                        <h4><i class="fas fa-cog"></i> Configurações Básicas</h4>
+                        
+                        <div class="form-group">
+                            <label for="prefix">Prefixo dos Comandos</label>
+                            <input type="text" id="prefix" placeholder="! (padrão)" maxlength="5">
+                            <small style="opacity: 0.7;">O prefixo usado para comandos (ex: !ping)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="language">Idioma</label>
+                            <select id="language">
+                                <option value="pt">Português (Brasil)</option>
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4><i class="fas fa-hashtag"></i> Canais do Sistema</h4>
+                        
+                        <div class="form-group">
+                            <label for="logChannel">Canal de Logs</label>
+                            <input type="text" id="logChannel" placeholder="logs-pessoas-que-não-leram-as-regras">
+                            <small style="opacity: 0.7;">Canal onde serão enviados os logs de moderação</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="suggestionChannel">Canal de Sugestões</label>
+                            <input type="text" id="suggestionChannel" placeholder="💡│sugestões">
+                            <small style="opacity: 0.7;">Canal onde as sugestões serão enviadas</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticketCategory">Categoria de Tickets</label>
+                            <input type="text" id="ticketCategory" placeholder="📁 🔧│SUPORTE AO GUERREIRO">
+                            <small style="opacity: 0.7;">Categoria onde os tickets serão criados</small>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4><i class="fas fa-user-shield"></i> Moderação</h4>
+                        
+                        <div class="form-group">
+                            <label for="modRole">Cargo de Moderação</label>
+                            <input type="text" id="modRole" placeholder="📜 Arauto da Ajuda">
+                            <small style="opacity: 0.7;">Cargo que terá acesso aos tickets e moderação</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="automod">Moderação Automática</label>
+                            <select id="automod">
+                                <option value="enabled">Ativada</option>
+                                <option value="disabled">Desativada</option>
+                            </select>
+                            <small style="opacity: 0.7;">Filtro automático de palavras proibidas</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="badWords">Palavras Banidas Personalizadas</label>
+                            <textarea id="badWords" rows="4" placeholder="palavra1, palavra2, palavra3..."></textarea>
+                            <small style="opacity: 0.7;">Adicione palavras personalizadas separadas por vírgula</small>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4><i class="fas fa-coins"></i> Sistema de Economia</h4>
+                        
+                        <div class="form-group">
+                            <label for="economy">Sistema de Economia</label>
+                            <select id="economy">
+                                <option value="enabled">Ativado</option>
+                                <option value="disabled">Desativado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dailyReward">Recompensa Diária (min-max)</label>
+                            <input type="text" id="dailyReward" placeholder="15-30" value="15-30">
+                            <small style="opacity: 0.7;">Quantidade de moedas do comando !diario</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exploreReward">Recompensa de Exploração (min-max)</label>
+                            <input type="text" id="exploreReward" placeholder="20-40" value="20-40">
+                            <small style="opacity: 0.7;">Quantidade de moedas do comando !explorar</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="xpRange">XP por Mensagem (min-max)</label>
+                            <input type="text" id="xpRange" placeholder="5-15" value="5-15">
+                            <small style="opacity: 0.7;">XP ganho por mensagem enviada</small>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="saveConfig()">
+                            <i class="fas fa-save"></i>
+                            Salvar Configurações
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetConfig()" style="margin-left: 1rem;">
+                            <i class="fas fa-undo"></i>
+                            Restaurar Padrão
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" target="_blank">
+                    <i class="fab fa-discord"></i> Adicionar Bot
+                </a>
+                <a href="#" onclick="window.scrollTo(0,0)">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a href="#commands">
+                    <i class="fas fa-list"></i> Comandos
+                </a>
+                <a href="#dashboard">
+                    <i class="fas fa-cog"></i> Configurar
+                </a>
+            </div>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>&copy; 2024 Necravox Bot. Desenvolvido com ❤️ para a comunidade Discord.</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem; cursor: pointer;" onclick="copyBotId()" title="Clique para copiar o ID do bot">
+                    Bot ID: 1395443649797423194 | 
+                    Status: <span style="color: #2ECC71;">Online</span> | 
+                    Versão: 2.0
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(30, 60, 114, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(30, 60, 114, 0.9)';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Configuration functions
+        function saveConfig() {
+            try {
+                const getInputValue = (id) => {
+                    const element = document.getElementById(id);
+                    return element ? element.value : '';
+                };
+
+                const config = {
                
