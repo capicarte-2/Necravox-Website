@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Necravox - Bot Discord</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>NecraVox - Bot Discord</title>
     <style>
         * {
             margin: 0;
@@ -13,21 +12,22 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e40af 100%);
             color: white;
-            overflow-x: hidden;
+            min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(30, 60, 114, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(20px);
             padding: 1rem 2rem;
             z-index: 1000;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .nav-container {
@@ -40,11 +40,11 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: bold;
-            color: #5DADE2;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -56,12 +56,14 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s ease;
             font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #5DADE2;
+            background: rgba(59, 130, 246, 0.2);
         }
 
         .hero {
@@ -71,73 +73,127 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
         }
 
-        .hero-content h1 {
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 50%;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 1; }
+            50% { transform: translateY(-15px); opacity: 0.7; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 8px 20px;
+            border-radius: 25px;
+            border: 1px solid #10b981;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .hero h1 {
             font-size: 4rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #5DADE2, #AED6F1);
+            background: linear-gradient(45deg, #3b82f6, #60a5fa, #93c5fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px #5DADE2); }
-            to { filter: drop-shadow(0 0 40px #AED6F1); }
+        .hero h1:hover {
+            transform: scale(1.05);
         }
 
-        .hero-content p {
+        .hero p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             opacity: 0.9;
         }
 
-        .cta-buttons {
+        .buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 3rem;
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 15px 30px;
             border: none;
-            border-radius: 50px;
+            border-radius: 30px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #5DADE2, #3498DB);
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
             color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(93, 173, 226, 0.4);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 2px solid #5DADE2;
+            border: 2px solid rgba(59, 130, 246, 0.5);
         }
 
         .btn-secondary:hover {
-            background: #5DADE2;
+            background: rgba(59, 130, 246, 0.2);
             transform: translateY(-3px);
         }
 
-        .features {
+        .demo-section {
             padding: 5rem 2rem;
             background: rgba(255, 255, 255, 0.05);
         }
@@ -150,685 +206,399 @@
         .section-title {
             text-align: center;
             font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #5DADE2;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .features-grid {
+        .section-desc {
+            text-align: center;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 4rem;
+        }
+
+        .demo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
-        .feature-card {
+        .demo-card {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            text-align: center;
+            padding: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
             transition: all 0.3s ease;
-            border: 1px solid rgba(93, 173, 226, 0.2);
+            cursor: pointer;
         }
 
-        .feature-card:hover {
+        .demo-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(93, 173, 226, 0.2);
-            border-color: #5DADE2;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
         }
 
-        .feature-card i {
-            font-size: 3rem;
-            color: #5DADE2;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
+        .demo-card h3 {
             font-size: 1.5rem;
+            color: #60a5fa;
             margin-bottom: 1rem;
-            color: #AED6F1;
         }
 
-        .commands {
-            padding: 5rem 2rem;
+        .demo-button {
+            background: linear-gradient(45deg, #10b981, #059669);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .commands-grid {
+        .demo-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .demo-output {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            min-height: 60px;
+            color: #93c5fd;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: #ef4444; }
+        .terminal-dot:nth-child(2) { background: #f59e0b; }
+        .terminal-dot:nth-child(3) { background: #10b981; }
+
+        .terminal-content {
+            font-family: monospace;
+            color: #10b981;
+            line-height: 1.6;
+        }
+
+        .command-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        .command-input input {
+            background: transparent;
+            border: none;
+            color: #60a5fa;
+            font-family: monospace;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
-        .command-category {
+        .stat-card {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            border: 1px solid rgba(93, 173, 226, 0.2);
-        }
-
-        .command-category h3 {
-            color: #5DADE2;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .command-list {
-            list-style: none;
-        }
-
-        .command-list li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .command-list li:last-child {
-            border-bottom: none;
-        }
-
-        .command-name {
-            font-weight: bold;
-            color: #AED6F1;
-        }
-
-        .command-desc {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-
-        .dashboard {
-            padding: 5rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .dashboard-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(93, 173, 226, 0.2);
-        }
-
-        .config-form {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            color: #AED6F1;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 1rem;
-            border: 2px solid rgba(93, 173, 226, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #5DADE2;
-            box-shadow: 0 0 10px rgba(93, 173, 226, 0.3);
-        }
-
-        .config-section {
-            background: rgba(255, 255, 255, 0.05);
             padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(93, 173, 226, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .config-section h4 {
-            color: #5DADE2;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #93c5fd;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .footer {
-            background: rgba(30, 60, 114, 0.9);
+            background: rgba(30, 60, 114, 0.8);
             padding: 3rem 2rem 1rem;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #AED6F1;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #5DADE2;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ECC71;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #2ECC71;
-            margin-bottom: 2rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #2ECC71;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .slide-up {
-            transform: translateY(50px);
-            opacity: 0;
-            animation: slideUp 1s ease-out forwards;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            border-top: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .features-grid,
-            .commands-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+            .demo-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-robot"></i>
-                Necravox
-            </div>
+            <div class="logo">🤖 NecraVox</div>
             <ul class="nav-links">
                 <li><a href="#home">Início</a></li>
-                <li><a href="#features">Recursos</a></li>
-                <li><a href="#commands">Comandos</a></li>
-                <li><a href="#dashboard">Painel</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#stats">Status</a></li>
             </ul>
         </div>
     </nav>
 
     <section id="home" class="hero">
-        <div class="hero-content fade-in">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
             <div class="status-badge">
                 <div class="status-dot"></div>
-                Online
+                Bot Online
             </div>
-            <h1>Necravox</h1>
-            <p>O bot Discord mais completo para seu servidor</p>
-            <p style="font-size: 1.2rem; opacity: 0.8;">Economia • Moderação • Diversão • Sistema de Tickets</p>
+            <h1 onclick="easterEgg()">🤖 NecraVox</h1>
+            <p>A Junção de Todos os Bots Existentes e Mais</p>
+            <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 2rem;">
+                Economia • XP • AutoMod • Tickets • Configure com /config
+            </p>
             
-            <div class="cta-buttons">
-                <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" class="btn btn-primary" target="_blank">
-                    <i class="fab fa-discord"></i>
-                    Adicionar ao Discord
+            <div class="buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" 
+                   class="btn btn-primary" target="_blank">
+                    🤖 Adicionar ao Discord
                 </a>
-                <a href="#dashboard" class="btn btn-secondary">
-                    <i class="fas fa-cog"></i>
-                    Configurar Bot
+                <a href="https://discord.gg/tjQqucxJRb" 
+                   class="btn btn-secondary" target="_blank">
+                    💬 Servidor de Suporte
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <section id="demo" class="demo-section">
         <div class="container">
-            <h2 class="section-title slide-up">Recursos do Necravox</h2>
+            <h2 class="section-title">🎮 Teste Interativo</h2>
+            <p class="section-desc">Experimente os comandos do NecraVox!</p>
             
-            <div class="features-grid">
-                <div class="feature-card slide-up">
-                    <i class="fas fa-coins"></i>
-                    <h3>Sistema de Economia</h3>
-                    <p>Sistema completo com XP, moedas, exploração, salário diário e transferências entre usuários.</p>
+            <div class="demo-grid">
+                <div class="demo-card" onclick="simulate('saldo')">
+                    <h3>💰 Verificar Saldo</h3>
+                    <p>Veja quanto você teria de moedas</p>
+                    <button class="demo-button">Testar !saldo</button>
+                    <div class="demo-output" id="saldo">Clique para testar...</div>
                 </div>
 
-                <div class="feature-card slide-up">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Moderação Automática</h3>
-                    <p>Filtro de palavras proibidas, sistema de logs e comandos de moderação para manter seu servidor seguro.</p>
+                <div class="demo-card" onclick="simulate('ping')">
+                    <h3>🏓 Teste de Ping</h3>
+                    <p>Verifique a latência do bot</p>
+                    <button class="demo-button">Testar !ping</button>
+                    <div class="demo-output" id="ping">Clique para testar...</div>
                 </div>
 
-                <div class="feature-card slide-up">
-                    <i class="fas fa-ticket-alt"></i>
-                    <h3>Sistema de Tickets</h3>
-                    <p>Sistema completo de suporte com categorias (Dúvidas, Bugs, Sugestões) e painéis automáticos.</p>
+                <div class="demo-card" onclick="simulate('perfil')">
+                    <h3>👤 Seu Perfil</h3>
+                    <p>Visualize seu perfil no servidor</p>
+                    <button class="demo-button">Testar /perfil</button>
+                    <div class="demo-output" id="perfil">Clique para testar...</div>
                 </div>
 
-                <div class="feature-card slide-up">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>Comandos Divertidos</h3>
-                    <p>Comandos de diversão, informações sobre times e personagens, calculadora e muito mais.</p>
+                <div class="demo-card" onclick="simulate('explorar')">
+                    <h3>🏝️ Exploração</h3>
+                    <p>Simule uma aventura</p>
+                    <button class="demo-button">Testar !explorar</button>
+                    <div class="demo-output" id="explorar">Clique para testar...</div>
                 </div>
+            </div>
 
-                <div class="feature-card slide-up">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Sistema de Ranking</h3>
-                    <p>Rankings de XP e economia, perfis de usuários com estatísticas detalhadas.</p>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <span style="color: #93c5fd; margin-left: 10px;">Terminal NecraVox</span>
                 </div>
-
-                <div class="feature-card slide-up">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Sistema de Sugestões</h3>
-                    <p>Permita que sua comunidade envie sugestões através de modais organizados.</p>
+                <div class="terminal-content">
+                    <div>🤖 Digite um comando para testar!</div>
+                    <div>Comandos: !ping, !saldo, !explorar, !diario, /perfil, /config</div>
+                    <div style="margin: 1rem 0;">═══════════════════════════════════════</div>
+                    <div class="command-input">
+                        <span style="color: #10b981;">user@discord:~$</span>
+                        <input type="text" id="terminal" placeholder="Digite um comando..." onkeypress="terminal(event)">
+                    </div>
+                    <div id="output"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="commands" class="commands">
+    <section id="stats" class="demo-section">
         <div class="container">
-            <h2 class="section-title">Comandos Disponíveis</h2>
+            <h2 class="section-title">📊 Status do Bot</h2>
+            <p class="section-desc">Estatísticas em tempo real</p>
             
-            <div class="commands-grid">
-                <div class="command-category slide-up">
-                    <h3><i class="fas fa-coins"></i> Economia</h3>
-                    <ul class="command-list">
-                        <li>
-                            <div>
-                                <div class="command-name">!saldo</div>
-                                <div class="command-desc">Ver seu saldo atual</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!explorar</div>
-                                <div class="command-desc">Explorar e ganhar moedas (1h cooldown)</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!diario</div>
-                                <div class="command-desc">Receber salário diário (24h cooldown)</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!pix @usuário valor</div>
-                                <div class="command-desc">Transferir moedas para outro usuário</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">/perfil [@usuário]</div>
-                                <div class="command-desc">Ver perfil com saldo, XP e cargos</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">/rank [página]</div>
-                                <div class="command-desc">Ver ranking de XP do servidor</div>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="stats-grid">
+                <div class="stat-card" onclick="animate(this)">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Servidor Ativo</div>
                 </div>
-
-                <div class="command-category slide-up">
-                    <h3><i class="fas fa-shield-alt"></i> Moderação</h3>
-                    <ul class="command-list">
-                        <li>
-                            <div>
-                                <div class="command-name">!clear [quantidade]</div>
-                                <div class="command-desc">Apagar mensagens (padrão: 5)</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!painel</div>
-                                <div class="command-desc">Criar painel de sistema de tickets</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">Filtro Automático</div>
-                                <div class="command-desc">Remove palavras proibidas automaticamente</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">Sistema de Logs</div>
-                                <div class="command-desc">Registra infrações no canal de logs</div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="stat-card" onclick="animate(this)">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Comandos</div>
                 </div>
-
-                <div class="command-category slide-up">
-                    <h3><i class="fas fa-gamepad"></i> Diversão & Utilidades</h3>
-                    <ul class="command-list">
-                        <li>
-                            <div>
-                                <div class="command-name">!ping</div>
-                                <div class="command-desc">Ver latência do bot</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!somar num1 num2</div>
-                                <div class="command-desc">Calculadora simples</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!falar mensagem</div>
-                                <div class="command-desc">O bot repete sua mensagem</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!times</div>
-                                <div class="command-desc">Ver informações sobre os times</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">!shadow_capi</div>
-                                <div class="command-desc">Lore sobre Shadow Capi</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <div class="command-name">/sugestao</div>
-                                <div class="command-desc">Enviar sugestão via modal</div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="stat-card" onclick="animate(this)">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Uptime</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="dashboard" class="dashboard">
-        <div class="container">
-            <h2 class="section-title">Painel de Configuração</h2>
-            
-            <div class="dashboard-container slide-up">
-                <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
-                    Configure o Necravox para seu servidor. Primeiro, 
-                    <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" 
-                       target="_blank" style="color: #5DADE2; text-decoration: none;">
-                        <strong>adicione o bot ao seu servidor</strong>
-                    </a>
-                </p>
-
-                <div class="config-form">
-                    <div class="config-section">
-                        <h4><i class="fas fa-cog"></i> Configurações Básicas</h4>
-                        
-                        <div class="form-group">
-                            <label for="prefix">Prefixo dos Comandos</label>
-                            <input type="text" id="prefix" placeholder="! (padrão)" maxlength="5">
-                            <small style="opacity: 0.7;">O prefixo usado para comandos (ex: !ping)</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="language">Idioma</label>
-                            <select id="language">
-                                <option value="pt">Português (Brasil)</option>
-                                <option value="en">English</option>
-                                <option value="es">Español</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="config-section">
-                        <h4><i class="fas fa-hashtag"></i> Canais do Sistema</h4>
-                        
-                        <div class="form-group">
-                            <label for="logChannel">Canal de Logs</label>
-                            <input type="text" id="logChannel" placeholder="logs-pessoas-que-não-leram-as-regras">
-                            <small style="opacity: 0.7;">Canal onde serão enviados os logs de moderação</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="suggestionChannel">Canal de Sugestões</label>
-                            <input type="text" id="suggestionChannel" placeholder="💡│sugestões">
-                            <small style="opacity: 0.7;">Canal onde as sugestões serão enviadas</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ticketCategory">Categoria de Tickets</label>
-                            <input type="text" id="ticketCategory" placeholder="📁 🔧│SUPORTE AO GUERREIRO">
-                            <small style="opacity: 0.7;">Categoria onde os tickets serão criados</small>
-                        </div>
-                    </div>
-
-                    <div class="config-section">
-                        <h4><i class="fas fa-user-shield"></i> Moderação</h4>
-                        
-                        <div class="form-group">
-                            <label for="modRole">Cargo de Moderação</label>
-                            <input type="text" id="modRole" placeholder="📜 Arauto da Ajuda">
-                            <small style="opacity: 0.7;">Cargo que terá acesso aos tickets e moderação</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="automod">Moderação Automática</label>
-                            <select id="automod">
-                                <option value="enabled">Ativada</option>
-                                <option value="disabled">Desativada</option>
-                            </select>
-                            <small style="opacity: 0.7;">Filtro automático de palavras proibidas</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="badWords">Palavras Banidas Personalizadas</label>
-                            <textarea id="badWords" rows="4" placeholder="palavra1, palavra2, palavra3..."></textarea>
-                            <small style="opacity: 0.7;">Adicione palavras personalizadas separadas por vírgula</small>
-                        </div>
-                    </div>
-
-                    <div class="config-section">
-                        <h4><i class="fas fa-coins"></i> Sistema de Economia</h4>
-                        
-                        <div class="form-group">
-                            <label for="economy">Sistema de Economia</label>
-                            <select id="economy">
-                                <option value="enabled">Ativado</option>
-                                <option value="disabled">Desativado</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dailyReward">Recompensa Diária (min-max)</label>
-                            <input type="text" id="dailyReward" placeholder="15-30" value="15-30">
-                            <small style="opacity: 0.7;">Quantidade de moedas do comando !diario</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exploreReward">Recompensa de Exploração (min-max)</label>
-                            <input type="text" id="exploreReward" placeholder="20-40" value="20-40">
-                            <small style="opacity: 0.7;">Quantidade de moedas do comando !explorar</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="xpRange">XP por Mensagem (min-max)</label>
-                            <input type="text" id="xpRange" placeholder="5-15" value="5-15">
-                            <small style="opacity: 0.7;">XP ganho por mensagem enviada</small>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button class="btn btn-primary" onclick="saveConfig()">
-                            <i class="fas fa-save"></i>
-                            Salvar Configurações
-                        </button>
-                        <button class="btn btn-secondary" onclick="resetConfig()" style="margin-left: 1rem;">
-                            <i class="fas fa-undo"></i>
-                            Restaurar Padrão
-                        </button>
-                    </div>
+                <div class="stat-card" onclick="animate(this)">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Online</div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://discord.com/oauth2/authorize?client_id=1395443649797423194&permissions=8&integration_type=0&scope=bot" target="_blank">
-                    <i class="fab fa-discord"></i> Adicionar Bot
-                </a>
-                <a href="#" onclick="window.scrollTo(0,0)">
-                    <i class="fas fa-home"></i> Início
-                </a>
-                <a href="#commands">
-                    <i class="fas fa-list"></i> Comandos
-                </a>
-                <a href="#dashboard">
-                    <i class="fas fa-cog"></i> Configurar
-                </a>
-            </div>
-            
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p>&copy; 2024 Necravox Bot. Desenvolvido com ❤️ para a comunidade Discord.</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem; cursor: pointer;" onclick="copyBotId()" title="Clique para copiar o ID do bot">
-                    Bot ID: 1395443649797423194 | 
-                    Status: <span style="color: #2ECC71;">Online</span> | 
-                    Versão: 2.0
-                </p>
-            </div>
+        <div class="container">
+            <p style="margin-bottom: 1rem; font-size: 1.1rem;">
+                Configure tudo com <strong>/config</strong> • Suporte no Discord
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.6);">
+                © 2025 NecraVox | Criado com 💙 para a comunidade Discord
+            </p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(30, 60, 114, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(30, 60, 114, 0.9)';
+        // Criar partículas
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
             }
+        }
+
+        // Simular comandos
+        function simulate(cmd) {
+            const responses = {
+                saldo: `💰 Seu saldo: ${Math.floor(Math.random() * 1000) + 100} moedas!`,
+                ping: `🏓 Pong! ${Math.floor(Math.random() * 50) + 20}ms`,
+                perfil: `👤 Nível ${Math.floor(Math.random() * 10) + 1} | ${Math.floor(Math.random() * 1000) + 200} XP`,
+                explorar: `🏝️ Você encontrou ${Math.floor(Math.random() * 30) + 10} moedas!`
+            };
+            
+            const output = document.getElementById(cmd);
+            output.innerHTML = `🤖 ${responses[cmd]}`;
+            output.style.background = 'rgba(16, 185, 129, 0.1)';
+            setTimeout(() => output.style.background = 'rgba(0, 0, 0, 0.3)', 2000);
+        }
+
+        // Terminal interativo
+        function terminal(e) {
+            if (e.key === 'Enter') {
+                const input = e.target.value.toLowerCase();
+                const output = document.getElementById('output');
+                let response = '';
+                
+                if (input.includes('ping')) response = `🏓 Pong! ${Math.floor(Math.random() * 50) + 20}ms`;
+                else if (input.includes('saldo')) response = `💰 Saldo: ${Math.floor(Math.random() * 1000) + 100} moedas`;
+                else if (input.includes('explorar')) response = `🏝️ +${Math.floor(Math.random() * 30) + 10} moedas!`;
+                else if (input.includes('diario')) response = `📅 Salário: +${Math.floor(Math.random() * 50) + 20} moedas`;
+                else if (input.includes('perfil')) response = `👤 Nível ${Math.floor(Math.random() * 10) + 1}`;
+                else if (input.includes('config')) response = `⚙️ Use /config para configurar!`;
+                else if (input === '') return;
+                else response = `❓ Comando desconhecido. Digite: ping, saldo, explorar, diario, perfil`;
+                
+                output.innerHTML += `<div style="margin: 0.5rem 0;"><span style="color: #3b82f6;">> </span>${input}</div><div style="color: #10b981;">🤖 ${response}</div>`;
+                e.target.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        // Easter egg
+        function easterEgg() {
+            const title = document.querySelector('.hero h1');
+            const msgs = ['🚀 Super Bot!', '⚡ Power!', '🎉 Amazing!', '💎 Premium!'];
+            const original = title.textContent;
+            title.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+            title.style.transform = 'scale(1.2) rotate(10deg)';
+            setTimeout(() => {
+                title.textContent = original;
+                title.style.transform = 'scale(1) rotate(0deg)';
+            }, 2000);
+        }
+
+        // Animar estatísticas
+        function animate(card) {
+            card.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => card.style.transform = 'scale(1) rotate(0deg)', 300);
+        }
+
+        // Scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.onclick = e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+            };
         });
 
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // Navbar no scroll
+        window.onscroll = () => {
+            const nav = document.querySelector('.navbar');
+            nav.style.background = window.scrollY > 50 ? 'rgba(30, 60, 114, 0.98)' : 'rgba(30, 60, 114, 0.95)';
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationDelay = '0.1s';
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.slide-up').forEach(el => {
-            observer.observe(el);
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            document.getElementById('terminal').focus();
         });
-
-        // Configuration functions
-        function saveConfig() {
-            try {
-                const getInputValue = (id) => {
-                    const element = document.getElementById(id);
-                    return element ? element.value : '';
-                };
-
-                const config = {
-               
+    </script>
+</body>
+</html>
